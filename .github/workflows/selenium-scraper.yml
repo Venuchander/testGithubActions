@@ -2,7 +2,7 @@ name: Run Selenium Scraper
 
 on:
   schedule:
-    - cron: '50 12 * * *' # Runs daily at 12:50 PM UTC
+    - cron: '20 7 * * *' # Runs daily at 12:50 PM UTC
   workflow_dispatch: # Allows manual trigger
 
 jobs:
