@@ -257,7 +257,7 @@ def main():
     start_time = time.time()
     url = 'https://sourcing.alibaba.com/rfq/rfq_search_list.htm?country=AE&recently=Y&quantityMin=49'
     scraper = None
-    pages = 100
+    pages = 2
     try:
         logging.info("Starting scraper...")
         processed_rfqs = []
@@ -300,7 +300,7 @@ def main():
         
         if processed_rfqs:
             
-            scraper.save_to_csv(processed_rfqs, filename='Govind.csv')
+            scraper.save_to_csv(processed_rfqs, filename='First.csv')
         else:
             logging.warning("No valid RFQ data to save")
         
