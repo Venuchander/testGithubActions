@@ -257,7 +257,7 @@ def main():
     start_time = time.time()
     url = 'https://sourcing.alibaba.com/rfq/rfq_search_list.htm?country=AE&recently=Y&quantityMin=49'
     scraper = None
-    pages = int(input("Enter the number of pages to scrape: "))
+    pages = 100
     try:
         logging.info("Starting scraper...")
         processed_rfqs = []

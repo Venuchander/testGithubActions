@@ -1,0 +1,11 @@
+2024-12-01 12:35:38,787 - INFO - Starting scraper...
+2024-12-01 12:35:42,130 - INFO - Scraper initialized successfully
+2024-12-01 12:35:42,130 - INFO - Attempting to scrape URL: https://sourcing.alibaba.com/rfq/rfq_search_list.htm?country=AE&recently=Y&quantityMin=49&page=1 (Attempt 1/3)
+2024-12-01 12:35:51,484 - INFO - Found 263 RFQ items
+2024-12-01 12:35:57,378 - INFO - Processed 69 items successfully
+2024-12-01 12:37:52,613 - INFO - Browser closed successfully
+2024-12-01 12:37:52,615 - INFO - Data successfully saved to Govind.csv
+2024-12-01 12:44:27,040 - INFO - Starting scraper...
+2024-12-01 12:44:28,279 - INFO - Scraper initialized successfully
+2024-12-01 12:44:28,280 - INFO - Attempting to scrape URL: https://sourcing.alibaba.com/rfq/rfq_search_list.htm?country=AE&recently=Y&quantityMin=49&page=1 (Attempt 1/3)
+2024-12-01 12:44:33,636 - ERROR - Error Processing
