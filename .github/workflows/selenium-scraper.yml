@@ -2,7 +2,7 @@ name: Run Selenium Scraper
 
 on:
   schedule:
-    - cron: '20 7 * * *' # Runs daily at 12:50 PM UTC
+    - cron: '20 7 * * *' # Runs daily at 12:50 PM IST (7:20 AM UTC)
   workflow_dispatch: # Allows manual trigger
 
 jobs:
@@ -10,28 +10,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.12.7'
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r Main1/requirements.txt
 
+      # Step 4: Run the Selenium scraper script
       - name: Run scraper
         working-directory: Main1
         run: |
           python main.py
 
+      # Step 5: Commit output file (use GITHUB_TOKEN for authentication)
       - name: Commit output file
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add Main1/First.csv
+          git add Main1/testOutput.csv
           git commit -m "Update scraper output"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 6: Upload CSV output as artifact
+      - name: Upload CSV output as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: testOutput-csv-output
+          path: Main1/testOutput.csv
