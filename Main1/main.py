@@ -68,19 +68,20 @@ class AlibabaRFQScraper:
     def get_quantity_required(self, item):
         try:
             
-            quantity_num = item.find_element(By.XPATH, ".//span[contains(@class, 'brh-rfq-item__quantity-num')]").text
-            unit_element = item.find_element(By.XPATH, ".//span[contains(@class, 'brh-rfq-item__quantity')]/following-sibling::span")
+            quantity_element = item.find_element(By.XPATH, ".//span[contains(@class, 'brh-rfq-item__quantity-num') or contains(@class, 'item tp-count')]")
+            quantity_num = quantity_element.text
+
+            
+            if 'brh-rfq-item__quantity-num' in quantity_element.get_attribute('class'):
+                unit_element = item.find_element(By.XPATH, ".//span[contains(@class, 'brh-rfq-item__quantity')]/following-sibling::span")
+            else:
+                unit_element = item.find_element(By.XPATH, ".//span[contains(@class, 'item tp-count')]/following-sibling::span")
+            
             unit_text = unit_element.text if unit_element else "Units"
             return f"{quantity_num} {unit_text}"
-        except:
-            try:
-                
-                quantity_num = item.find_element(By.XPATH, ".//span[contains(@class, 'item tp-count')]").text
-                unit_element = item.find_element(By.XPATH, ".//span[contains(@class, 'item tp-count')]/following-sibling::span")
-                unit_text = unit_element.text if unit_element else "Units"
-                return f"{quantity_num} {unit_text}"
-            except:
-                return "Not specified"
+        
+        except NoSuchElementException:
+            return "Not specified"
 
     def get_description_and_attach(self, url):
 
