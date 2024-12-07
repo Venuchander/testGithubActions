@@ -34,8 +34,27 @@ jobs:
         run: |
           python main.py
 
-      # Step 5: Commit output file (use GITHUB_TOKEN for authentication)
+      # Step 5: List directory contents for debugging
+      - name: List directory contents
+        run: |
+          echo "Contents of Main1 directory:"
+          ls -la Main1
+
+      # Step 6: Check if output file exists
+      - name: Verify testOutput.csv existence
+        id: check-file
+        run: |
+          if [ -f Main1/testOutput.csv ]; then
+            echo "File exists"
+            echo "file-exists=true" >> $GITHUB_ENV
+          else
+            echo "File does not exist"
+            echo "file-exists=false" >> $GITHUB_ENV
+          fi
+
+      # Step 7: Commit output file if it exists
       - name: Commit output file
+        if: env.file-exists == 'true'
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
@@ -43,8 +62,9 @@ jobs:
           git commit -m "Update scraper output"
           git push origin HEAD:main # This will use the GITHUB_TOKEN automatically
 
-      # Step 6: Upload CSV output as artifact
+      # Step 8: Upload CSV output as artifact if it exists
       - name: Upload CSV output as artifact
+        if: env.file-exists == 'true'
         uses: actions/upload-artifact@v3
         with:
           name: testOutput-csv-output
