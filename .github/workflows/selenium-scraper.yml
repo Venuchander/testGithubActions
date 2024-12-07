@@ -28,20 +28,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 4: Check if testOutput.csv exists and rename it with the date
-      - name: Rename testOutput.csv if it exists
-        run: |
-          if [ -f Main1/testOutput.csv ]; then
-            mv Main1/testOutput.csv Main1/testOutput_$(date +'%Y-%m-%d').csv
-          fi
-
-      # Step 5: Run the Selenium scraper script
+      # Step 4: Run the Selenium scraper script
       - name: Run scraper
         working-directory: Main1
         run: |
           python main.py
 
-      # Step 6: Commit output file (use GITHUB_TOKEN for authentication)
+      # Step 5: Commit output file (use GITHUB_TOKEN for authentication)
       - name: Commit output file
         run: |
           git config --global user.name "GitHub Actions"
@@ -50,7 +43,7 @@ jobs:
           git commit -m "Update scraper output"
           git push origin HEAD:main # This will use the GITHUB_TOKEN automatically
 
-      # Step 7: Upload CSV output as artifact
+      # Step 6: Upload CSV output as artifact
       - name: Upload CSV output as artifact
         uses: actions/upload-artifact@v3
         with:
