@@ -81,8 +81,8 @@ class AlibabaRFQScraper:
             return f"{quantity_num} {unit_text}"
         
         except NoSuchElementException:
-            return "Not specified"
-
+            return item.get_attribute('outerHTML')
+        
     def get_description_and_attach(self, url):
 
         desc, image, time1 = "", "", ""
@@ -265,7 +265,7 @@ def main():
     start_time = time.time()
     url = 'https://sourcing.alibaba.com/rfq/rfq_search_list.htm?country=AE&recently=Y&quantityMin=49'
     scraper = None
-    pages = 2
+    pages = 65
     try:
         logging.info("Starting scraper...")
         processed_rfqs = []

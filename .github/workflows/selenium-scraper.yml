@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12.7' # Your Python version
+          python-version: '3.12' # Your Python version
 
       # Step 3: Install dependencies
       - name: Install dependencies
@@ -28,27 +28,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 4: Check if testOutput.csv exists and rename it with the date
-      - name: Rename testOutput.csv if it exists
-        run: |
-          if [ -f Main1/testOutput.csv ]; then
-            mv Main1/testOutput.csv Main1/testOutput_$(date +'%Y-%m-%d').csv
-          fi
-
-      # Step 5: Run the Selenium scraper script
+      # Step 4: Run the Selenium scraper script
       - name: Run scraper
         working-directory: Main1
         run: |
           python main.py
 
-      # Step 6: Commit output file (use GITHUB_TOKEN for authentication)
+      # Step 5: List directory contents for debugging
+      - name: List directory contents
+        run: |
+          echo "Contents of Main1 directory:"
+          ls -la Main1
+
+      # Step 6: Commit output file
       - name: Commit output file
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add Main1/testOutput.csv
           git commit -m "Update scraper output"
-          git push origin HEAD:main # This will use the GITHUB_TOKEN automatically
+          git push origin HEAD:main
 
       # Step 7: Upload CSV output as artifact
       - name: Upload CSV output as artifact
@@ -56,3 +55,4 @@ jobs:
         with:
           name: testOutput-csv-output
           path: Main1/testOutput.csv
+
