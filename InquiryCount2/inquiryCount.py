@@ -37,7 +37,7 @@ def count_inquiries_and_update(file_path):
     print(f"Inquiry count has been added to {file_path}")
 
 
-input_file_path = 'Govind.csv'
+input_file_path = r'InquiryCount2\testOutput.csv'   
 
 
 count_inquiries_and_update(input_file_path)

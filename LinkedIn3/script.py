@@ -1,4 +1,4 @@
-#python script.py --input Govind.csv --email vc2178@srmist.edu.in --password selenium
+#python script.py --input testOutput.csv --email vc2178@srmist.edu.in --password selenium
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -52,8 +52,8 @@ class LinkedInScraper:
         params = {
             'geoUrn': '["104305776"]',
             'keywords': name,
-            'origin': 'GLOBAL_SEARCH_HEADER',
-            'sid': 'Ymx'
+            'origin': 'FACETED_SEARCH',
+            'sid': 'H0L'
         }
         
         # URL encode the name and other parameters
